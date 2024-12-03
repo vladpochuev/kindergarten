@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Children Database</title>
+</head>
+<body>
+<h1>Children Database</h1>
+<table>
+    <thead>
+    <tr>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>Age</th>
+        <th>Gender</th>
+        <th>Group</th>
+        <th>Parent</th>
+        <th>Educator</th>
+        <th>Meal</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for child in children %}
+    <tr>
+        <td>{{ child.first_name }}</td>
+        <td>{{ child.last_name }}</td>
+        <td>{{ child.age }}</td>
+        <td>{{ child.gender }}</td>
+        <td>{{ child.group }}</td>
+        <td>{{ child.parent }}</td>
+        <td>{{ child.educator }}</td>
+        <td>{{ child.meal }}</td>
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+</body>
+</html>
