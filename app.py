@@ -7,6 +7,7 @@ from dotenv import load_dotenv
 import psycopg2
 
 from ChildDTO import ChildDTO
+from ParentDTO import ParentDTO
 from dao import *
 
 app = Flask(__name__)
@@ -24,6 +25,14 @@ def get_db_connection():
                             user=get_from_env("DB_USER"),
                             password=get_from_env("DB_PASSWORD"))
     return conn
+
+
+def get_age(birth_date):
+    today = datetime.today()
+    age = today.year - birth_date.year
+    if (today.month, today.day) < (birth_date.month, birth_date.day):
+        age -= 1
+    return age
 
 
 @app.route('/')
@@ -44,21 +53,26 @@ def main():
         parent = parent_dao.get_by_id(child[6])
         menu = menu_dao.get_by_id(child[7])
 
-        today = datetime.today()
         birth_date = child[3]
-        age = today.year - birth_date.year
-        if (today.month, today.day) < (birth_date.month, birth_date.day):
-            age -= 1
+        age = get_age(birth_date)
 
-        print(age)
-
-        children_dto = ChildDTO(child[1], child[2], age, child[4], parent[1] + " " + parent[2],
+        children_dto = ChildDTO(child[1], child[2], age, child[4], parent[0], parent[1] + " " + parent[2],
                                 group[2],
                                 educator[1] + " " + educator[2], menu[2])
         children_dao_list.append(children_dto)
 
     conn.close()
     return render_template("index.html", children=children_dao_list)
+
+
+@app.route('/parent/<parent_id>')
+def parent(parent_id):
+    conn = get_db_connection()
+    parent_dao = ParentDAO(conn)
+    parent = parent_dao.get_by_id(parent_id)
+    parent_dto = ParentDTO(parent[1] + " " + parent[2], get_age(parent[3]), parent[6], parent[4], parent[5])
+
+    return render_template("parent.html", parent=parent_dto)
 
 
 if __name__ == '__main__':

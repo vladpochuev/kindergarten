@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/parent.css') }}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Child Details</title>
+</head>
+<body>
+<h1>Parent Details</h1>
+<table>
+    <tbody>
+    <tr>
+        <th>Name</th>
+        <td>{{ parent.name }}</td>
+    </tr>
+    <tr>
+        <th>Age</th>
+        <td>{{ parent.age }}</td>
+    </tr>
+    <tr>
+        <th>Gender</th>
+        <td>{{ parent.gender }}</td>
+    </tr>
+    <tr>
+        <th>Phone</th>
+        <td>{{ parent.phone }}</td>
+    </tr>
+    <tr>
+        <th>Email</th>
+        <td>{{ parent.email }}</td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>
