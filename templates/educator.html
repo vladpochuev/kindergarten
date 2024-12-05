@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/parent.css') }}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Educator Details</title>
+</head>
+<body>
+<h1>Educator Details</h1>
+<table>
+    <tbody>
+    <tr>
+        <th>Name</th>
+        <td>{{ educator.name }}</td>
+    </tr>
+    <tr>
+        <th>Birth date</th>
+        <td>{{ educator.birth_date }}</td>
+    </tr>
+    <tr>
+        <th>Gender</th>
+        <td>{{ educator.gender }}</td>
+    </tr>
+    <tr>
+        <th>Phone</th>
+        <td>{{ educator.phone }}</td>
+    </tr>
+    <tr>
+        <th>Email</th>
+        <td>{{ educator.email }}</td>
+    </tr>
+    <tr>
+        <th>Qualification</th>
+        <td>{{ educator.qualification }}</td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>
