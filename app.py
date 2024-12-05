@@ -8,6 +8,7 @@ import psycopg2
 
 from ChildDTO import ChildDTO
 from ParentDTO import ParentDTO
+from GroupDTO import GroupDTO
 from dao import *
 
 app = Flask(__name__)
@@ -35,6 +36,11 @@ def get_age(birth_date):
     return age
 
 
+def get_formatted_date(birth_date):
+    date = birth_date.strftime("%d.%m.%Y")
+    return date
+
+
 @app.route('/')
 def main():
     conn = get_db_connection()
@@ -56,7 +62,7 @@ def main():
         birth_date = child[3]
         age = get_age(birth_date)
 
-        children_dto = ChildDTO(child[1], child[2], age, child[4], parent[0], parent[1] + " " + parent[2],
+        children_dto = ChildDTO(child[1], child[2], age, child[4], parent[0], parent[1] + " " + parent[2], group[0],
                                 group[2],
                                 educator[1] + " " + educator[2], menu[2])
         children_dao_list.append(children_dto)
@@ -70,9 +76,25 @@ def parent(parent_id):
     conn = get_db_connection()
     parent_dao = ParentDAO(conn)
     parent = parent_dao.get_by_id(parent_id)
-    parent_dto = ParentDTO(parent[1] + " " + parent[2], get_age(parent[3]), parent[6], parent[4], parent[5])
+    parent_dto = ParentDTO(parent[1] + " " + parent[2], get_formatted_date(parent[3]), parent[6], parent[4], parent[5])
 
     return render_template("parent.html", parent=parent_dto)
+
+
+@app.route('/group/<group_id>')
+def groups(group_id):
+    conn = get_db_connection()
+    group_dao = GroupDAO(conn)
+    educator_dao = EducatorDAO(conn)
+    children_dao = ChildrenDAO(conn)
+
+    group = group_dao.get_by_id(group_id)
+    educator = educator_dao.get_by_id(group[1])
+    children = children_dao.get_by_group(group_id)
+
+    group_dto = GroupDTO(group[2], educator[1] + " " + educator[2], str(group[3]) + "-" + str(group[4]) + " years",
+                         len(children))
+    return render_template("group.html", group=group_dto)
 
 
 if __name__ == '__main__':

@@ -28,7 +28,7 @@
         <td>{{ child.last_name }}</td>
         <td>{{ child.age }}</td>
         <td>{{ child.gender }}</td>
-        <td>{{ child.group }}</td>
+        <td><a href="/group/{{ child.group_id }}">{{ child.group }}</a></td>
         <td><a href="/parent/{{ child.parent_id }}">{{ child.parent_name }}</a></td>
         <td>{{ child.educator }}</td>
         <td>{{ child.meal }}</td>

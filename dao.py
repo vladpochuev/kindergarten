@@ -11,6 +11,12 @@ class ChildrenDAO(DAO):
         cur.close()
         return children
 
+    def get_by_group(self, group_id):
+        cur = self.conn.cursor()
+        cur.execute("SELECT * FROM children WHERE group_id = %s", (group_id,))
+        children = cur.fetchall()
+        cur.close()
+        return children
 
 class ParentDAO(DAO):
     def get_by_id(self, parent_id):

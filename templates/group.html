@@ -4,31 +4,27 @@
     <meta charset="UTF-8">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/parent.css') }}">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Child Details</title>
+    <title>Group Details</title>
 </head>
 <body>
-<h1>Parent Details</h1>
+<h1>Group Details</h1>
 <table>
     <tbody>
     <tr>
         <th>Name</th>
-        <td>{{ parent.name }}</td>
+        <td>{{ group.name }}</td>
     </tr>
     <tr>
-        <th>Birth date</th>
-        <td>{{ parent.birth_date }}</td>
+        <th>Educator</th>
+        <td>{{ group.educator }}</td>
     </tr>
     <tr>
-        <th>Gender</th>
-        <td>{{ parent.gender }}</td>
+        <th>Age range</th>
+        <td>{{ group.age_range }}</td>
     </tr>
     <tr>
-        <th>Phone</th>
-        <td>{{ parent.phone }}</td>
-    </tr>
-    <tr>
-        <th>Email</th>
-        <td>{{ parent.email }}</td>
+        <th>Size</th>
+        <td>{{ group.size }}</td>
     </tr>
     </tbody>
 </table>
