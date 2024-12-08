@@ -23,7 +23,7 @@ def main_controller():
         group = group_dao.get_by_id(child.group_id)
         educator = educator_dao.get_by_id(group.educator_id)
         parent = parent_dao.get_by_id(child.parent_contact_id)
-        menu = menu_dao.get_by_id(child.meal_id)
+        menu = menu_dao.get_by_id(child.menu_id)
 
         child_dto = get_child_dto(child, group, educator, parent, menu)
         children_dao_list.append(child_dto)
@@ -72,6 +72,18 @@ def educator_controller(educator_id):
 
     conn.close()
     return render_template("educator.html", educator=educator_dto)
+
+
+@app.route("/menu/<menu_id>")
+def menu_controller(menu_id):
+    conn = get_db_connection()
+
+    menu_dao = MenuDAO(conn)
+    menu = menu_dao.get_by_id(menu_id)
+    menu_dto = get_menu_dto(menu)
+
+    conn.close()
+    return render_template("menu.html", menu=menu_dto)
 
 
 if __name__ == "__main__":

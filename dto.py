@@ -1,6 +1,6 @@
 class ChildDTO:
     def __init__(self, first_name, last_name, age, gender, parent_id, parent_name, group_id, group, educator_id,
-                 educator, meal):
+                 educator, menu_id, menu):
         self.first_name = first_name
         self.last_name = last_name
         self.age = age
@@ -11,7 +11,8 @@ class ChildDTO:
         self.group = group
         self.educator_id = educator_id
         self.educator = educator
-        self.meal = meal
+        self.menu_id = menu_id
+        self.menu = menu
 
 
 class ParentDTO:
@@ -39,3 +40,10 @@ class EducatorDTO:
         self.phone = phone
         self.email = email
         self.qualification = qualification
+
+
+class MenuDTO:
+    def __init__(self, name, description, since):
+        self.name = name
+        self.description = description
+        self.since = since

@@ -29,7 +29,7 @@ class DAO:
 class ChildDAO(DAO):
     child_template = namedtuple("Child",
                                 ["id", "first_name", "last_name", "birth_date", "gender", "group_id",
-                                 "parent_contact_id", "meal_id"])
+                                 "parent_contact_id", "menu_id"])
 
     def get_all(self):
         rows = self.get_rows("SELECT * FROM children")
@@ -50,11 +50,11 @@ class ParentDAO(DAO):
 
 
 class MenuDAO(DAO):
-    meal_template = namedtuple("Menu", ["id", "since", "name", "description"])
+    menu_template = namedtuple("Menu", ["id", "since", "name", "description"])
 
-    def get_by_id(self, meal_id):
-        row = self.get_row_args("SELECT * FROM menu WHERE id = %s", (meal_id,))
-        return self.meal_template(*row)
+    def get_by_id(self, menu_id):
+        row = self.get_row_args("SELECT * FROM menu WHERE id = %s", (menu_id,))
+        return self.menu_template(*row)
 
 
 class EducatorDAO(DAO):

@@ -14,6 +14,7 @@ def get_child_dto(child, group, educator, parent, menu):
         group.name,
         educator.id,
         f"{educator.first_name} {educator.last_name}",
+        menu.id,
         menu.name)
 
 
@@ -43,3 +44,10 @@ def get_educator_dto(educator):
         educator.phone,
         educator.email,
         educator.qualification)
+
+
+def get_menu_dto(menu):
+    return MenuDTO(
+        menu.name,
+        menu.description,
+        get_formatted_date(menu.since))
