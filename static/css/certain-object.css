@@ -12,6 +12,16 @@ th, td {
     white-space: normal;
 }
 
+.centered {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+.side_margin {
+    margin: 0 10px;
+}
+
 th {
     background-color: #f2f2f2;
     text-align: left;

@@ -2,12 +2,30 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <link rel="stylesheet" href="../static/css/main.css">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Children Database</title>
 </head>
 <body>
-<h1>Children Database</h1>
+<div class="header">
+    <h1>Children Database</h1>
+    <div class="profile">
+        {% if current_user.is_authenticated %}
+        <div>
+            <span>{{ current_user.username }}</span>
+            <a href="/logout">Log out</a>
+        </div>
+        {% endif %}
+
+        {% if not current_user.is_authenticated %}
+        <div>
+            <a href="/login">Login</a>
+            <a href="/register">Sign Up</a>
+        </div>
+        {% endif %}
+    </div>
+</div>
 <table>
     <thead>
     <tr>

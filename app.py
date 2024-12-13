@@ -1,10 +1,25 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request, flash, redirect, url_for
+from flask_login import LoginManager, login_user, logout_user, login_required, current_user
+from werkzeug.security import generate_password_hash
 
 from dao import *
 from mappers import *
 from system_utils import *
 
 app = Flask(__name__, template_folder="templates")
+app.secret_key = get_from_env("SECRET_KEY")
+
+login_manager = LoginManager()
+login_manager.init_app(app)
+login_manager.login_view = "login"
+
+
+@login_manager.user_loader
+def load_user(user_id):
+    conn = get_db_connection()
+    parent_dao = ParentDAO(conn)
+
+    return parent_dao.get_by_id(user_id)
 
 
 @app.route("/")
@@ -84,6 +99,66 @@ def menu_controller(menu_id):
 
     conn.close()
     return render_template("menu.html", menu=menu_dto)
+
+
+@app.route('/register', methods=['POST'])
+def register_post():
+    conn = get_db_connection()
+    parent_dao = ParentDAO(conn)
+
+    first_name = request.form['first_name']
+    last_name = request.form['last_name']
+    birth_date = request.form['birth_date']
+    phone_number = request.form['phone_number']
+    email = request.form['email']
+    gender = request.form['gender']
+    password = request.form['password']
+
+    if parent_dao.exists_by_name(first_name + ' ' + last_name):
+        return redirect(url_for('register_get'))
+
+    password_hash = generate_password_hash(password)
+    parent_dao.save(Parent(None, first_name, last_name, birth_date, phone_number, email, gender, password_hash))
+    return redirect(url_for('login_get'))
+
+
+@app.route('/register', methods=['GET'])
+def register_get():
+    return render_template("register.html", title="Register")
+
+
+@app.route('/login', methods=['POST'])
+def login_post():
+    conn = get_db_connection()
+    parent_dao = ParentDAO(conn)
+
+    first_name = request.form['first_name']
+    last_name = request.form['last_name']
+    password = request.form['password']
+
+    parent = parent_dao.get_by_name(first_name + " " + last_name)
+    if parent and parent.verify_password(password):
+        login_user(parent)
+        return redirect(url_for('main_controller'))
+    return redirect(url_for('login_get'))
+
+
+@app.route('/login', methods=['GET'])
+def login_get():
+    return render_template("login.html", title="Login")
+
+
+@login_required
+@app.route('/logout', methods=['POST'])
+def logout_post():
+    logout_user()
+    return redirect(url_for('main_controller'))
+
+
+@login_required
+@app.route('/logout', methods=['GET'])
+def logout_get():
+    return render_template('logout.html', title="Logout")
 
 
 if __name__ == "__main__":
