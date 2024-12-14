@@ -9,6 +9,13 @@
 </head>
 <body>
 <h1>Log out</h1>
+{% with messages = get_flashed_messages() %}
+{% if messages %}
+    {% for message in messages %}
+    <div class="centered" style="color: red">{{ message }}</div>
+    {% endfor %}
+{% endif %}
+{% endwith %}
 <form method="post">
     <div class="centered"><p>Are you sure you want to log out?</p></div>
     <div class="centered">

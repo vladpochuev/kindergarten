@@ -56,7 +56,6 @@ class ParentDAO(DAO):
         return row is not None
 
     def get_by_name(self, name):
-        print(name)
         row = self.get_row_args("SELECT * FROM parents WHERE CONCAT(first_name, ' ', last_name) = %s", (name,))
         if row is None:
             return None

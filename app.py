@@ -115,10 +115,12 @@ def register_post():
     password = request.form['password']
 
     if parent_dao.exists_by_name(first_name + ' ' + last_name):
+        flash('Username already exists.')
         return redirect(url_for('register_get'))
 
     password_hash = generate_password_hash(password)
     parent_dao.save(Parent(None, first_name, last_name, birth_date, phone_number, email, gender, password_hash))
+    flash('Registration successful. Please log in.')
     return redirect(url_for('login_get'))
 
 
@@ -139,7 +141,9 @@ def login_post():
     parent = parent_dao.get_by_name(first_name + " " + last_name)
     if parent and parent.verify_password(password):
         login_user(parent)
+        flash('Login successful!')
         return redirect(url_for('main_controller'))
+    flash('Invalid username or password.')
     return redirect(url_for('login_get'))
 
 
@@ -152,6 +156,7 @@ def login_get():
 @app.route('/logout', methods=['POST'])
 def logout_post():
     logout_user()
+    flash('Logged out successfully.')
     return redirect(url_for('main_controller'))
 
 
