@@ -12,3 +12,7 @@ def get_age(birth_date):
 def get_formatted_date(birth_date):
     date = birth_date.strftime("%d.%m.%Y")
     return date
+
+
+def get_date_from_string(str_date):
+    return datetime.strptime(str_date, "%Y-%m-%d").date()

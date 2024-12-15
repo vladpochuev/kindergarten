@@ -47,7 +47,7 @@
             <th><label for="group">Group</label></th>
             <td><select id="group" name="group" required>
                 {% for group in groups %}
-                <option value="{{ group.id}}">{{ group.name }}</option>
+                <option value="{{ group.id}}">{{ group.name + " (" + group.age_range + " р.)" }}</option>
                 {% endfor %}
             </select></td>
         </tr>

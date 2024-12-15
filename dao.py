@@ -1,5 +1,5 @@
-from collections import namedtuple
 from models import *
+from psycopg2.errors import CheckViolation
 
 
 class DAO:
@@ -28,9 +28,13 @@ class DAO:
 
     def save_obj(self, query, args):
         cur = self.conn.cursor()
-        cur.execute(query, args)
-        self.conn.commit()
-        cur.close()
+        try:
+            cur.execute(query, args)
+            self.conn.commit()
+        except CheckViolation:
+            raise ValueError
+        finally:
+            cur.close()
 
 
 class ChildDAO(DAO):
@@ -44,17 +48,14 @@ class ChildDAO(DAO):
 
     def save(self, child):
         self.save_obj(
-            "INSERT INTO children (first_name, last_name, birth_date, gender, group_id, parent_contact_id, meal_id) " +
+            "INSERT INTO children (first_name, last_name, birth_date, gender, group_id, parent_id, menu_id) " +
             "VALUES (%s, %s, %s, %s, %s, %s, %s)", (
                 child.first_name, child.last_name, child.birth_date, child.gender, child.group_id,
-                child.parent_contact_id,
+                child.parent_id,
                 child.menu_id))
 
 
 class ParentDAO(DAO):
-    parent_template = namedtuple("Parent", ["id", "first_name", "last_name", "birth_date",
-                                            "phone", "email", "gender", "hash_password"])
-
     def get_by_id(self, parent_id):
         row = self.get_row_args("SELECT * FROM parents WHERE id = %s", (parent_id,))
         return Parent(row[0], row[1], row[2], row[3], row[4], row[5], row[6], row[7])
@@ -78,8 +79,6 @@ class ParentDAO(DAO):
 
 
 class MenuDAO(DAO):
-    menu_template = namedtuple("Menu", ["id", "since", "name", "description"])
-
     def get_by_id(self, menu_id):
         row = self.get_row_args("SELECT * FROM menu WHERE id = %s", (menu_id,))
         return Menu(row[0], row[1], row[2], row[3])
@@ -90,18 +89,12 @@ class MenuDAO(DAO):
 
 
 class EducatorDAO(DAO):
-    educator_template = namedtuple("Educator",
-                                   ["id", "first_name", "last_name", "birth_date", "phone", "email",
-                                    "qualification", "gender"])
-
     def get_by_id(self, educator_id):
         row = self.get_row_args("SELECT * FROM educators WHERE id = %s", (educator_id,))
         return Educator(row[0], row[1], row[2], row[3], row[4], row[5], row[6], row[7])
 
 
 class GroupDAO(DAO):
-    group_template = namedtuple("Group", ["id", "educator_id", "name", "from_age", "to_age"])
-
     def get_by_id(self, group_id):
         row = self.get_row_args("SELECT * FROM groups WHERE id = %s", (group_id,))
         return Group(row[0], row[1], row[2], row[3], row[4])

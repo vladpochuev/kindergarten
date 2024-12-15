@@ -37,7 +37,7 @@ def main_controller():
     for child in children:
         group = group_dao.get_by_id(child.group_id)
         educator = educator_dao.get_by_id(group.educator_id)
-        parent = parent_dao.get_by_id(child.parent_contact_id)
+        parent = parent_dao.get_by_id(child.parent_id)
         menu = menu_dao.get_by_id(child.menu_id)
 
         child_dto = get_child_dto(child, group, educator, parent, menu)
@@ -132,6 +132,7 @@ def post_new_child():
     conn = get_db_connection()
     parent_dao = ParentDAO(conn)
     child_dao = ChildDAO(conn)
+    group_dao = GroupDAO(conn)
 
     first_name = request.form['first_name']
     last_name = request.form['last_name']
@@ -141,9 +142,21 @@ def post_new_child():
     menu_id = request.form['menu']
     parent = parent_dao.get_by_name(current_user.username)
 
-    child_dao.save(Child(None, first_name, last_name, birth_date, gender, group_id, parent.id, menu_id))
-    flash("Child added successfully")
-    return redirect(url_for('main_controller'))
+    group = group_dao.get_by_id(group_id)
+    child_age = get_age(get_date_from_string(birth_date))
+    if child_age < group.from_age or child_age > group.to_age:
+        flash("The child does not meet the age requirements for this group.")
+        return redirect(url_for('get_new_child'))
+
+    try:
+        child_dao.save(Child(None, first_name, last_name, birth_date, gender, group_id, parent.id, menu_id))
+        flash("Child added successfully")
+        conn.close()
+        return redirect(url_for('main_controller'))
+    except ValueError:
+        flash("Error while creating new child")
+        conn.close()
+        return redirect(url_for('get_new_child'))
 
 
 @app.route('/register', methods=['POST'])
@@ -161,11 +174,13 @@ def register_post():
 
     if parent_dao.exists_by_name(first_name + ' ' + last_name):
         flash('Username already exists.')
+        conn.close()
         return redirect(url_for('register_get'))
 
     password_hash = generate_password_hash(password)
     parent_dao.save(Parent(None, first_name, last_name, birth_date, phone_number, email, gender, password_hash))
     flash('Registration successful. Please log in.')
+    conn.close()
     return redirect(url_for('login_get'))
 
 
@@ -187,8 +202,10 @@ def login_post():
     if parent and parent.verify_password(password):
         login_user(parent)
         flash('Login successful!')
+        conn.close()
         return redirect(url_for('main_controller'))
     flash('Invalid username or password.')
+    conn.close()
     return redirect(url_for('login_get'))
 
 
