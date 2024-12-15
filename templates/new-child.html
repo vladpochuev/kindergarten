@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="../static/css/certain-object.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/certain-object.css') }}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>New child</title>
+</head>
+<body>
+<h1>New child</h1>
+{% with messages = get_flashed_messages() %}
+{% if messages %}
+{% for message in messages %}
+<div class="centered" style="color: red">{{ message }}</div>
+{% endfor %}
+{% endif %}
+{% endwith %}
+<form method="post">
+    <table>
+        <tr>
+            <th><label for="first_name">First name</label></th>
+            <td><input id="first_name" type="text" name="first_name" required></td>
+        </tr>
+
+        <tr>
+            <th><label for="last_name">Last name</label></th>
+            <td><input id="last_name" type="text" name="last_name" required></td>
+        </tr>
+
+        <tr>
+            <th><label for="birth_date">Birth date</label></th>
+            <td><input id="birth_date" type="date" name="birth_date" required></td>
+        </tr>
+
+        <tr>
+            <th><label>Gender</label></th>
+            <td>
+                <input id="gender_male" type="radio" name="gender" value="male" checked>
+                <label for="gender_male">Male</label>
+                <input id="gender_female" type="radio" name="gender" value="female">
+                <label for="gender_female">Female</label>
+            </td>
+        </tr>
+
+        <tr>
+            <th><label for="group">Group</label></th>
+            <td><select id="group" name="group" required>
+                {% for group in groups %}
+                <option value="{{ group.id}}">{{ group.name }}</option>
+                {% endfor %}
+            </select></td>
+        </tr>
+
+        <tr>
+            <th><label for="menu">Menu</label></th>
+            <td><select id="menu" name="menu" required>
+                {% for menu in menu_list %}
+                <option value="{{ menu.id }}">{{ menu.name }}</option>
+                {% endfor %}
+            </select></td>
+        </tr>
+    </table>
+
+    <div class="centered">
+        <button type="submit" class="side_margin">Login</button>
+        <button type="button" onclick="redirectTo('/')" class="side_margin">Back</button>
+    </div>
+
+</form>
+</body>
+
+<script src="{{ url_for('static', filename='js/main.js') }}"></script>
+
+</html>

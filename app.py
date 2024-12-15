@@ -11,7 +11,7 @@ app.secret_key = get_from_env("SECRET_KEY")
 
 login_manager = LoginManager()
 login_manager.init_app(app)
-login_manager.login_view = "login"
+login_manager.login_view = "login_get"
 
 
 @login_manager.user_loader
@@ -32,7 +32,7 @@ def main_controller():
     group_dao = GroupDAO(conn)
     menu_dao = MenuDAO(conn)
 
-    children_dao_list = []
+    children_dto_list = []
     children = children_dao.get_all()
     for child in children:
         group = group_dao.get_by_id(child.group_id)
@@ -41,10 +41,10 @@ def main_controller():
         menu = menu_dao.get_by_id(child.menu_id)
 
         child_dto = get_child_dto(child, group, educator, parent, menu)
-        children_dao_list.append(child_dto)
+        children_dto_list.append(child_dto)
 
     conn.close()
-    return render_template("children.html", children=children_dao_list)
+    return render_template("children.html", children=children_dto_list)
 
 
 @app.route("/parent/<parent_id>")
@@ -101,6 +101,51 @@ def menu_controller(menu_id):
     return render_template("menu.html", menu=menu_dto)
 
 
+@app.route("/new_child", methods=["GET"])
+@login_required
+def get_new_child():
+    conn = get_db_connection()
+    group_dao = GroupDAO(conn)
+    menu_dao = MenuDAO(conn)
+    educator_dao = EducatorDAO(conn)
+    child_dao = ChildDAO(conn)
+
+    groups_dto = []
+    groups = group_dao.get_all()
+    for group in groups:
+        educator = educator_dao.get_by_id(group.educator_id)
+        children = child_dao.get_by_group(group.id)
+        groups_dto.append(get_group_dto(group, educator, children))
+
+    menu_list_dto = []
+    menu_list = menu_dao.get_all()
+    for menu in menu_list:
+        menu_list_dto.append(get_menu_dto(menu))
+
+    conn.close()
+    return render_template("new-child.html", menu_list=menu_list_dto, groups=groups_dto)
+
+
+@app.route("/new_child", methods=["POST"])
+@login_required
+def post_new_child():
+    conn = get_db_connection()
+    parent_dao = ParentDAO(conn)
+    child_dao = ChildDAO(conn)
+
+    first_name = request.form['first_name']
+    last_name = request.form['last_name']
+    birth_date = request.form['birth_date']
+    gender = request.form['gender']
+    group_id = request.form['group']
+    menu_id = request.form['menu']
+    parent = parent_dao.get_by_name(current_user.username)
+
+    child_dao.save(Child(None, first_name, last_name, birth_date, gender, group_id, parent.id, menu_id))
+    flash("Child added successfully")
+    return redirect(url_for('main_controller'))
+
+
 @app.route('/register', methods=['POST'])
 def register_post():
     conn = get_db_connection()
@@ -152,16 +197,16 @@ def login_get():
     return render_template("login.html", title="Login")
 
 
-@login_required
 @app.route('/logout', methods=['POST'])
+@login_required
 def logout_post():
     logout_user()
     flash('Logged out successfully.')
     return redirect(url_for('main_controller'))
 
 
-@login_required
 @app.route('/logout', methods=['GET'])
+@login_required
 def logout_get():
     return render_template('logout.html', title="Logout")
 

@@ -25,7 +25,8 @@ class ParentDTO:
 
 
 class GroupDTO:
-    def __init__(self, name, educator, age_range, size):
+    def __init__(self, id, name, educator, age_range, size):
+        self.id = id
         self.name = name
         self.educator = educator
         self.age_range = age_range
@@ -43,7 +44,8 @@ class EducatorDTO:
 
 
 class MenuDTO:
-    def __init__(self, name, description, since):
+    def __init__(self, id, name, description, since):
+        self.id = id
         self.name = name
         self.description = description
         self.since = since

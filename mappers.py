@@ -30,6 +30,7 @@ def get_parent_dto(parent):
 
 def get_group_dto(group, educator, children):
     return GroupDTO(
+        group.id,
         group.name,
         f"{educator.first_name} {educator.last_name}",
         f"{group.from_age}-{group.to_age}",
@@ -48,6 +49,7 @@ def get_educator_dto(educator):
 
 def get_menu_dto(menu):
     return MenuDTO(
+        menu.id,
         menu.name,
         menu.description,
         get_formatted_date(menu.since))

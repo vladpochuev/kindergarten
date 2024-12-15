@@ -42,6 +42,14 @@ class ChildDAO(DAO):
         rows = self.get_rows_args("SELECT * FROM children WHERE group_id = %s", (group_id,))
         return [Child(row[0], row[1], row[2], row[3], row[4], row[5], row[6], row[7]) for row in rows]
 
+    def save(self, child):
+        self.save_obj(
+            "INSERT INTO children (first_name, last_name, birth_date, gender, group_id, parent_contact_id, meal_id) " +
+            "VALUES (%s, %s, %s, %s, %s, %s, %s)", (
+                child.first_name, child.last_name, child.birth_date, child.gender, child.group_id,
+                child.parent_contact_id,
+                child.menu_id))
+
 
 class ParentDAO(DAO):
     parent_template = namedtuple("Parent", ["id", "first_name", "last_name", "birth_date",
@@ -76,6 +84,10 @@ class MenuDAO(DAO):
         row = self.get_row_args("SELECT * FROM menu WHERE id = %s", (menu_id,))
         return Menu(row[0], row[1], row[2], row[3])
 
+    def get_all(self):
+        rows = self.get_rows("SELECT * FROM menu")
+        return [Menu(row[0], row[1], row[2], row[3]) for row in rows]
+
 
 class EducatorDAO(DAO):
     educator_template = namedtuple("Educator",
@@ -93,3 +105,7 @@ class GroupDAO(DAO):
     def get_by_id(self, group_id):
         row = self.get_row_args("SELECT * FROM groups WHERE id = %s", (group_id,))
         return Group(row[0], row[1], row[2], row[3], row[4])
+
+    def get_all(self):
+        rows = self.get_rows("SELECT * FROM groups")
+        return [Group(row[0], row[1], row[2], row[3], row[4]) for row in rows]

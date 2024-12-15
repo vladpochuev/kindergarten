@@ -9,7 +9,12 @@
 </head>
 <body>
 <div class="header">
-    <h1>Children Database</h1>
+    <div style="display: flex">
+        <h1>Children Database</h1>
+        <div class="button_container">
+            <button class="button" onclick="redirectTo('/new_child')">+</button>
+        </div>
+    </div>
     <div class="profile">
         {% if current_user.is_authenticated %}
         <div>
@@ -63,5 +68,8 @@
     {% endfor %}
     </tbody>
 </table>
+
+<script src="{{ url_for('static', filename='js/main.js') }}"></script>
+
 </body>
 </html>
