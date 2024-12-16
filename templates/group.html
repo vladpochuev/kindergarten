@@ -4,26 +4,26 @@
     <meta charset="UTF-8">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/certain-object.css') }}">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Group Details</title>
+    <title>Група</title>
 </head>
 <body>
-<h1>Group Details</h1>
+<h1>Група</h1>
 <table>
     <tbody>
     <tr>
-        <th>Name</th>
+        <th>Назва</th>
         <td>{{ group.name }}</td>
     </tr>
     <tr>
-        <th>Educator</th>
+        <th>Вихователь</th>
         <td>{{ group.educator }}</td>
     </tr>
     <tr>
-        <th>Age range</th>
+        <th>Вікова група</th>
         <td>{{ group.age_range }}</td>
     </tr>
     <tr>
-        <th>Size</th>
+        <th>Кількість дітей</th>
         <td>{{ group.size }}</td>
     </tr>
     </tbody>

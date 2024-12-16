@@ -4,22 +4,22 @@
     <meta charset="UTF-8">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/certain-object.css') }}">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Menu Details</title>
+    <title>Меню</title>
 </head>
 <body>
-<h1>Menu Details</h1>
+<h1>Меню</h1>
 <table>
     <tbody>
     <tr>
-        <th>Name</th>
+        <th>Назва</th>
         <td>{{ menu.name }}</td>
     </tr>
     <tr>
-        <th>Description</th>
+        <th>Опис</th>
         <td>{{ menu.description }}</td>
     </tr>
     <tr>
-        <th>Since</th>
+        <th>Доступно з</th>
         <td>{{ menu.since }}</td>
     </tr>
 </table>

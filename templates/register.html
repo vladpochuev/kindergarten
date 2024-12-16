@@ -5,10 +5,10 @@
     <link rel="stylesheet" href="../static/css/certain-object.css">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/certain-object.css') }}">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Registration</title>
+    <title>Реєстрація</title>
 </head>
 <body>
-<h1>Registration</h1>
+<h1>Реєстрація</h1>
 {% with messages = get_flashed_messages() %}
 {% if messages %}
     {% for message in messages %}
@@ -19,49 +19,49 @@
 <form method="post">
     <table>
         <tr>
-            <th><label for="first_name">First name</label></th>
+            <th><label for="first_name">Ім'я</label></th>
             <td><input id="first_name" type="text" name="first_name" required></td>
         </tr>
 
         <tr>
-            <th><label for="last_name">Last name</label></th>
+            <th><label for="last_name">Прізвище</label></th>
             <td><input id="last_name" type="text" name="last_name" required></td>
         </tr>
 
         <tr>
-            <th><label for="birth_date">Birth date</label></th>
+            <th><label for="birth_date">Дата народження</label></th>
             <td><input id="birth_date" type="date" name="birth_date" required></td>
         </tr>
 
         <tr>
-            <th><label for="phone_number">Phone number</label></th>
+            <th><label for="phone_number">Номер телефону</label></th>
             <td><input id="phone_number" type="tel" name="phone_number" required></td>
         </tr>
 
         <tr>
-            <th><label for="email">Email</label></th>
+            <th><label for="email">Пошта</label></th>
             <td><input id="email" type="email" name="email" required></td>
         </tr>
 
         <tr>
-            <th><label>Gender</label></th>
+            <th><label>Стать</label></th>
             <td>
-                <input id="gender_male" type="radio" name="gender" value="male" checked>
-                <label for="gender_male">Male</label>
-                <input id="gender_female" type="radio" name="gender" value="female">
-                <label for="gender_female">Female</label>
+                <input id="gender_male" type="radio" name="gender" value="Чоловік" checked>
+                <label for="gender_male">Чоловік</label>
+                <input id="gender_female" type="radio" name="gender" value="Жінка">
+                <label for="gender_female">Жінка</label>
             </td>
         </tr>
 
         <tr>
-            <th><label for="password">Password</label></th>
+            <th><label for="password">Пароль</label></th>
             <td><input id="password" type="password" name="password" required></td>
         </tr>
     </table>
 
     <div class="centered">
-        <button type="submit" class="side_margin">Login</button>
-        <button type="button" onclick="redirectTo('/')" class="side_margin">Back</button>
+        <button type="submit" class="side_margin">Реєстрація</button>
+        <button type="button" onclick="redirectTo('/')" class="side_margin">Назад</button>
     </div>
 
 </form>

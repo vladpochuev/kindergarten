@@ -5,10 +5,10 @@
     <link rel="stylesheet" href="../static/css/certain-object.css">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/certain-object.css') }}">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>New child</title>
+    <title>Додати дитину</title>
 </head>
 <body>
-<h1>New child</h1>
+<h1>Додати дитину</h1>
 {% with messages = get_flashed_messages() %}
 {% if messages %}
 {% for message in messages %}
@@ -19,32 +19,32 @@
 <form method="post">
     <table>
         <tr>
-            <th><label for="first_name">First name</label></th>
+            <th><label for="first_name">Ім'я</label></th>
             <td><input id="first_name" type="text" name="first_name" required></td>
         </tr>
 
         <tr>
-            <th><label for="last_name">Last name</label></th>
+            <th><label for="last_name">Прізвище</label></th>
             <td><input id="last_name" type="text" name="last_name" required></td>
         </tr>
 
         <tr>
-            <th><label for="birth_date">Birth date</label></th>
+            <th><label for="birth_date">Дата народження</label></th>
             <td><input id="birth_date" type="date" name="birth_date" required></td>
         </tr>
 
         <tr>
-            <th><label>Gender</label></th>
+            <th><label>Стать</label></th>
             <td>
-                <input id="gender_male" type="radio" name="gender" value="male" checked>
-                <label for="gender_male">Male</label>
-                <input id="gender_female" type="radio" name="gender" value="female">
-                <label for="gender_female">Female</label>
+                <input id="gender_male" type="radio" name="gender" value="Хлопчик" checked>
+                <label for="gender_male">Хлопчик</label>
+                <input id="gender_female" type="radio" name="gender" value="Дівчинка">
+                <label for="gender_female">Дівчинка</label>
             </td>
         </tr>
 
         <tr>
-            <th><label for="group">Group</label></th>
+            <th><label for="group">Група</label></th>
             <td><select id="group" name="group" required>
                 {% for group in groups %}
                 <option value="{{ group.id}}">{{ group.name + " (" + group.age_range + " р.)" }}</option>
@@ -53,7 +53,7 @@
         </tr>
 
         <tr>
-            <th><label for="menu">Menu</label></th>
+            <th><label for="menu">Меню</label></th>
             <td><select id="menu" name="menu" required>
                 {% for menu in menu_list %}
                 <option value="{{ menu.id }}">{{ menu.name }}</option>

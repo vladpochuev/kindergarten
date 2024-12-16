@@ -4,30 +4,30 @@
     <meta charset="UTF-8">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/certain-object.css') }}">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Child Details</title>
+    <title>Родитель</title>
 </head>
 <body>
-<h1>Parent Details</h1>
+<h1>Родитель</h1>
 <table>
     <tbody>
     <tr>
-        <th>Name</th>
+        <th>Ім'я</th>
         <td>{{ parent.name }}</td>
     </tr>
     <tr>
-        <th>Birth date</th>
+        <th>Дата народження</th>
         <td>{{ parent.birth_date }}</td>
     </tr>
     <tr>
-        <th>Gender</th>
+        <th>Стать</th>
         <td>{{ parent.gender }}</td>
     </tr>
     <tr>
-        <th>Phone</th>
+        <th>Номер телефону</th>
         <td>{{ parent.phone }}</td>
     </tr>
     <tr>
-        <th>Email</th>
+        <th>Пошта</th>
         <td>{{ parent.email }}</td>
     </tr>
     </tbody>
