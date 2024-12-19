@@ -1,0 +1,22 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+autonumber
+
+actor User
+participant Server
+database DB
+
+User -> Server: <b>GET /new-child</b>
+Server -> DB: <b>SELECT * FROM groups</b>
+Server <-- DB: <b>{id: 1, educator_id: 1, ...</b>
+Server -> DB: <b>SELECT * FROM menu</b>
+Server <-- DB: <b>{id: 1, name: "Меню", ...</b>
+Server -> Server: <b>render_template("new-child.html")</b>
+User <-- Server: <b>200 OK</b>
+User -> Server: <b>POST /new-child</b>\n{first_name: "Олег", last_name: "Сірко", ...
+Server -> DB: <b>INSERT INTO children\n<b>VALUES("Олег", "Сірко", ...</b>
+Server <-- DB: <b>{id: 1}</b>
+User <-- Server: <b>redirect /</b>
+
+@enduml
