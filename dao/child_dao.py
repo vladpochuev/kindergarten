@@ -1,4 +1,4 @@
-from dao.base_dao import DAO
+from dao.dao import DAO
 from model import Child
 
 

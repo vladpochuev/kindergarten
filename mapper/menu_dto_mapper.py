@@ -2,8 +2,8 @@ from model import *
 from service.date_utils import *
 
 
-class MenuMapper:
-    def get_menu_dto(self, menu):
+class MenuDTOMapper:
+    def from_entity(self, menu):
         return MenuDTO(
             menu.id,
             menu.name,

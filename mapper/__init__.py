@@ -1,7 +1,7 @@
-from .child_mapper import ChildMapper
-from .parent_mapper import ParentMapper
-from .educator_mapper import EducatorMapper
-from .group_mapper import GroupMapper
-from .menu_mapper import MenuMapper
+from .child_dto_mapper import ChildDTOMapper
+from .educator_dto_mapper import EducatorDTOMapper
+from .group_dto_mapper import GroupDTOMapper
+from .menu_dto_mapper import MenuDTOMapper
+from .parent_dto_mapper import ParentDTOMapper
 
-__all__ = ["ChildMapper", "ParentMapper", "EducatorMapper", "GroupMapper", "MenuMapper"]
+__all__ = ["ChildDTOMapper", "ParentDTOMapper", "EducatorDTOMapper", "GroupDTOMapper", "MenuDTOMapper"]

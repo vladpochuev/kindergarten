@@ -1,8 +1,8 @@
 from model import *
 
 
-class GroupMapper:
-    def get_group_dto(self, group, educator, children):
+class GroupDTOMapper:
+    def from_entity(self, group, educator, children):
         return GroupDTO(
             group.id,
             group.name,

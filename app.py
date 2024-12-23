@@ -2,8 +2,7 @@ from flask import Flask
 from flask_login import LoginManager
 
 from controller import auth_blueprint, entity_blueprint
-from dao import ParentDAO
-from service import get_from_env, get_db_connection
+from service import get_from_env, handle_connection
 
 app = Flask(__name__, template_folder="templates")
 app.secret_key = get_from_env("SECRET_KEY")
@@ -17,11 +16,9 @@ app.register_blueprint(entity_blueprint)
 
 
 @login_manager.user_loader
-def load_user(user_id):
-    conn = get_db_connection()
-    parent_dao = ParentDAO(conn)
-
-    return parent_dao.get_by_id(user_id)
+@handle_connection
+def load_user(db, user_id):
+    return db.parents.get_by_id(user_id)
 
 
 if __name__ == "__main__":
