@@ -55,7 +55,7 @@
         <tr>
             <th><label for="menu">Меню</label></th>
             <td><select id="menu" name="menu" required>
-                {% for menu in menu_list %}
+                {% for menu in menus %}
                 <option value="{{ menu.id }}">{{ menu.name }}</option>
                 {% endfor %}
             </select></td>

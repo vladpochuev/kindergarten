@@ -2,7 +2,7 @@ CREATE DATABASE kindergarten;
 
 \c kindergarten;
 
-CREATE TABLE menu (
+CREATE TABLE menus (
     id SERIAL PRIMARY KEY,
     since DATE,
     name VARCHAR(20),
@@ -51,7 +51,7 @@ CREATE TABLE children (
     menu_id INT,
     FOREIGN KEY (group_id) REFERENCES groups(id),
     FOREIGN KEY (parent_id) REFERENCES parents(id),
-    FOREIGN KEY (menu_id) REFERENCES menu(id)
+    FOREIGN KEY (menu_id) REFERENCES menus(id)
 );
 
 ALTER TABLE children

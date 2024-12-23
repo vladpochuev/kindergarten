@@ -62,12 +62,12 @@ def get_menu(db, menu_id):
     return render_template("menu.html", menu=menu_dto)
 
 
-def get_menu_list_dto(db):
-    menu_list_dto = []
+def get_menus_dto(db):
+    menus_dto = []
     for menu in db.menus.get_all():
         menu_dto = MenuDTOMapper().from_entity(menu)
-        menu_list_dto.append(menu_dto)
-    return menu_list_dto
+        menus_dto.append(menu_dto)
+    return menus_dto
 
 
 def get_group_dto(group, db):
@@ -89,8 +89,8 @@ def get_groups_dto(db):
 @handle_connection
 def get_new_child(db):
     groups_dto = get_groups_dto(db)
-    menu_list_dto = get_menu_list_dto(db)
-    return render_template("new-child.html", menu_list=menu_list_dto, groups=groups_dto)
+    menus_dto = get_menus_dto(db)
+    return render_template("new-child.html", menus=menus_dto, groups=groups_dto)
 
 
 def is_age_suitable(new_child, group):
