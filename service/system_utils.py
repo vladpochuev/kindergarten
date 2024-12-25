@@ -1,5 +1,4 @@
 import os
-from os.path import join, dirname
 
 import psycopg2
 from dotenv import load_dotenv
@@ -7,9 +6,11 @@ from dotenv import load_dotenv
 from .database_service import DatabaseService
 
 
+def set_dotenv(path):
+    load_dotenv(path)
+
+
 def get_from_env(key):
-    dotenv_path = join(dirname(__file__), ".env")
-    load_dotenv(dotenv_path)
     return os.environ.get(key)
 
 

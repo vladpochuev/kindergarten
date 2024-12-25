@@ -1,8 +1,13 @@
+from os.path import join, dirname
+
 from flask import Flask
 from flask_login import LoginManager
 
 from controller import auth_blueprint, entity_blueprint
-from service import get_from_env, handle_connection
+from service import set_dotenv, get_from_env, handle_connection
+
+dotenv_path = join(dirname(__file__), ".env")
+set_dotenv(dotenv_path)
 
 app = Flask(__name__, template_folder="templates")
 app.secret_key = get_from_env("SECRET_KEY")
