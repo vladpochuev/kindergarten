@@ -1,4 +1,4 @@
-from model import *
+from src.python.model import *
 
 
 class GroupDTOMapper:

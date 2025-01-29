@@ -1,4 +1,4 @@
-from model import LoginDTO
+from src.python.model import LoginDTO
 from .form_extractor import Extractor
 
 

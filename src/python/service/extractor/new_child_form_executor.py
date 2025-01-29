@@ -1,4 +1,4 @@
-from model import NewChildDTO
+from src.python.model import NewChildDTO
 from .form_extractor import Extractor
 
 

@@ -1,5 +1,5 @@
-from model import *
-from service.date_utils import *
+from src.python.model import *
+from src.python.service.date_utils import *
 
 
 class ChildDTOMapper:

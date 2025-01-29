@@ -1,4 +1,4 @@
-from psycopg2.errors import CheckViolation
+from psycopg2 import DatabaseError
 
 
 class DAO:
@@ -30,7 +30,7 @@ class DAO:
         try:
             cur.execute(query, args)
             self.conn.commit()
-        except CheckViolation:
+        except DatabaseError:
             raise ValueError
         finally:
             cur.close()

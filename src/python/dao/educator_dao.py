@@ -1,5 +1,5 @@
-from dao.dao import DAO
-from model import Educator
+from src.python.dao.dao import DAO
+from src.python.model import Educator
 
 
 class EducatorDAO(DAO):

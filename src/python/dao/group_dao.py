@@ -1,5 +1,5 @@
-from dao.dao import DAO
-from model import Group
+from src.python.dao.dao import DAO
+from src.python.model import Group
 
 
 class GroupDAO(DAO):

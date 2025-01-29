@@ -1,8 +1,8 @@
 from flask import render_template, request, flash, redirect, url_for, Blueprint
 from flask_login import login_required, current_user
 
-from mapper import *
-from service import *
+from src.python.mapper import *
+from src.python.service import *
 
 entity_blueprint = Blueprint("entity", __name__)
 

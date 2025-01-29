@@ -2,13 +2,12 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="../../static/css/certain-object.css">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/certain-object.css') }}">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Реєстрація</title>
+    <title>Додати дитину</title>
 </head>
 <body>
-<h1>Реєстрація</h1>
+<h1>Додати дитину</h1>
 {% with messages = get_flashed_messages() %}
 {% if messages %}
 {% for message in messages %}
@@ -34,33 +33,36 @@
         </tr>
 
         <tr>
-            <th><label for="phone_number">Номер телефону</label></th>
-            <td><input id="phone_number" type="tel" name="phone_number" required></td>
-        </tr>
-
-        <tr>
-            <th><label for="email">Пошта</label></th>
-            <td><input id="email" type="email" name="email" required></td>
-        </tr>
-
-        <tr>
             <th><label>Стать</label></th>
             <td>
-                <input id="gender_male" type="radio" name="gender" value="Чоловік" checked>
-                <label for="gender_male">Чоловік</label>
-                <input id="gender_female" type="radio" name="gender" value="Жінка">
-                <label for="gender_female">Жінка</label>
+                <input id="gender_male" type="radio" name="gender" value="Хлопчик" checked>
+                <label for="gender_male">Хлопчик</label>
+                <input id="gender_female" type="radio" name="gender" value="Дівчинка">
+                <label for="gender_female">Дівчинка</label>
             </td>
         </tr>
 
         <tr>
-            <th><label for="password">Пароль</label></th>
-            <td><input id="password" type="password" name="password" required></td>
+            <th><label for="group">Група</label></th>
+            <td><select id="group" name="group" required>
+                {% for group in groups %}
+                <option value="{{ group.id}}">{{ group.name + " (" + group.age_range + " р.)" }}</option>
+                {% endfor %}
+            </select></td>
+        </tr>
+
+        <tr>
+            <th><label for="menu">Меню</label></th>
+            <td><select id="menu" name="menu" required>
+                {% for menu in menus %}
+                <option value="{{ menu.id }}">{{ menu.name }}</option>
+                {% endfor %}
+            </select></td>
         </tr>
     </table>
 
     <div class="centered">
-        <button type="submit" class="side_margin">Реєстрація</button>
+        <button type="submit" class="side_margin">Додати</button>
         <button type="button" onclick="redirectTo('/')" class="side_margin">Назад</button>
     </div>
 

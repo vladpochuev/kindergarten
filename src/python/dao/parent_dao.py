@@ -1,5 +1,5 @@
-from dao.dao import DAO
-from model import Parent
+from src.python.dao.dao import DAO
+from src.python.model import Parent
 
 
 class ParentDAO(DAO):

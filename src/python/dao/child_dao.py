@@ -1,5 +1,5 @@
-from dao.dao import DAO
-from model import Child
+from src.python.dao.dao import DAO
+from src.python.model import Child
 
 
 class ChildDAO(DAO):

@@ -1,4 +1,4 @@
-from model import RegisterDTO
+from src.python.model import RegisterDTO
 from .form_extractor import Extractor
 
 

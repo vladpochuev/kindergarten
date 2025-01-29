@@ -1,5 +1,5 @@
-from dao.dao import DAO
-from model import Menu
+from src.python.dao.dao import DAO
+from src.python.model import Menu
 
 
 class MenuDAO(DAO):

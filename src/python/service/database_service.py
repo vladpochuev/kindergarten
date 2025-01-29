@@ -1,4 +1,4 @@
-from dao import *
+from src.python.dao import *
 
 
 class DatabaseService:

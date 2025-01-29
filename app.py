@@ -3,13 +3,13 @@ from os.path import join, dirname
 from flask import Flask
 from flask_login import LoginManager
 
-from controller import auth_blueprint, entity_blueprint
-from service import set_dotenv, get_from_env, handle_connection
+from src.python.controller import auth_blueprint, entity_blueprint
+from src.python.service import set_dotenv, get_from_env, handle_connection
 
 dotenv_path = join(dirname(__file__), ".env")
 set_dotenv(dotenv_path)
 
-app = Flask(__name__, template_folder="templates")
+app = Flask(__name__, template_folder="src/resources/templates", static_folder="src/resources/static")
 app.secret_key = get_from_env("SECRET_KEY")
 
 login_manager = LoginManager()
